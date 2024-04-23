@@ -11,7 +11,7 @@ def calculator():
         investment_amount = int(request.form.get('investment_amount', 0))
         if len(strategies) > 0:
             return redirect(url_for('display_portafolio', strategies=",".join(strategies), investment_amount=investment_amount))
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 @app.route('/portafolio/', methods=['GET'])
