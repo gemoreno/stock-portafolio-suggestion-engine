@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Page</title>
+  <link rel="icon" href="logo/title.png" type="image/x-icon" >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="logo/logo.png" alt="Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#risk-levels">Blogs</a></li>
+        <li><a href="#investment-section">Stock Suggestor</a></li>
+        <li><a href="#customer-reviews">About</a></li>
+        <li><a href="#team-section">Team</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<section class="error" id="error">
+  <div class="error-container">
+    <div class="left-section">
+            <img src="gif/404.gif" alt="Error Image">
+        </div>
+
+        <div class="right-section">
+            <h1>Error Message</h1>
+            <p>Oops! Something went wrong.</p>
+        </div>
+        
+    </div>
+
+</section>
+
+
+
+
+
+</body>
+
+<footer class="footer" style="position: fixed; bottom: 0; width: 100%;"  >
+  <div class="container">
+    <h2>Disclaimer: The content on this website is for informational purposes only and should not be considered as financial advice. All investment decisions are at your own risk.</h2>
+    <p>&copy; 2024 CMPE 285. All rights reserved.</p>
+  </div>
+</footer>
+
+</html>
+
+<script>
+// Express.js example
+app.get('/data', (req, res) => {
+    // If an error occurs during processing
+    if (errorOccurred) {
+        res.status(500).json({ error: 'An error occurred while processing the request.' });
+    } else {
+        // If no error, send data
+        res.json({ data: responseData });
+    }
+});
+
+</script>

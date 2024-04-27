@@ -713,4 +713,48 @@ button[type="submit"]:hover {
   background-color: #f9f9f9;
 }
 
+/* error section */
+
+.error-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; 
+  max-width: 90%; 
+  text-align: center;
+  padding: 50px;
+  background-color: #0f054b;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex: 1;
+}
+
+.right-section {
+  flex: 60%;
+  padding: 20px;
+}
+
+.left-section {
+  flex: 30%;
+  padding: 5px;
+  background-color: #CEB257;
+}
+
+.left-section img {
+  max-height: 250px;
+}
+
+.error-container h1 {
+  font-size: 48px;
+  color: #CEB257; 
+}
+
+.error-container p {
+  color: #CEB257; 
+  font-size: 18px;
+  margin-top: 10px;
+}
+
 
