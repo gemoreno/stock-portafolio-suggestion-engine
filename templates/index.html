@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wealth Wise</title>
-  <link rel="icon" href="static/logo/title.png" type="image/x-icon" >
-  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="icon" href="../static/logo/title.png" type="image/x-icon" >
+  <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
 
 <header>
   <div class="container">
     <div class="logo">
-      <img src="static/logo/logo.png" alt="Logo">
+      <img src="../static/logo/logo.png" alt="Logo">
     </div>
     <nav>
       <ul>
@@ -30,7 +30,7 @@
   <div class="container">
     <div class="hero-content">
       <div class="gif">
-        <img src="static/logo/WealthWise.png" alt="logo">
+        <img src="../static/logo/WealthWise.png" alt="logo">
       </div>
       <div class="message">
         <p>Find the <b>best investment strategies</b> for all <b>your money</b>.</p>
@@ -44,14 +44,14 @@
     <div class="risk-content">
     <p class="section-risks"><b>Choose</b> <span style="color: #CEB257;">the right </span><b>level of risk</b> <span style="color: #CEB257;">for different </span><b>chunks of your change</b></p>
       <div class="gif-risk">
-        <img src="static/pictures/plane.png" alt="Plane GIF">
+        <img src="../static/pictures/plane.png" alt="Plane GIF">
       </div>
     </div>
       <div class="content">
       <div class="panels">
         <!-- Panel 1 -->
         <div class="panel">
-          <img src="static/pictures/ethical.png" alt="Image 1">
+          <img src="../static/pictures/ethical.png" alt="Image 1">
           <h2>Ethical Investing</h2>
           <p>It is an investment strategy where the investor's ethical values (moral, religious, social) are the primary objective, along with good returns. With suspicious and illegal investment deals on the rise, many investors are starting to insist that companies they invest in are socially responsible.</p>
           <a href="https://corporatefinanceinstitute.com/resources/esg/ethical-investing/#:~:text=Ethical%20investing%20is%20an%20investment,invest%20in%20are%20socially%20responsible.">Learn More</a>
@@ -106,50 +106,53 @@
       </div>
 
         <h2>Investing for you, <span style="color: #CEB257;">managed by us.</span></h2>
-      
-        <form>
+
+        <form method="post" action="/">
           <h1>Stock Suggester</h1>
           <p>Enter an amount to invest $:
-          <input type="number" placeholder="5000" min="5000"></p>
-          <p><span style="color: #CEB257;">Select one or two strategies:</p></span>
-        
-        <div class="investment-panels">
-          <!-- Panel 1 -->
-          <div class="investment-panel">
-            <img src="static/pictures/ethical-1.png" alt="Image 1">
-            <h3>Ethical Investment</h3>
-            <input type="checkbox" name="strategy1" id="strategy1">
+            <input type="number" name="investment_amount" placeholder="5000" min="5000">
+          </p>
+          <p><span style="color: #CEB257;">Select one or two strategies:</span></p>
+
+          <div class="investment-panels">
+            <!-- Panel 1 -->
+            <div class="investment-panel">
+              <img src="static/pictures/ethical-1.png" alt="Image 1">
+              <h3>Ethical Investment</h3>
+              <input type="checkbox" name="strategy" id="strategy1" value="Ethical Investing">
+            </div>
+            <!-- Panel 2 -->
+            <div class="investment-panel">
+              <img src="static/pictures/growth-1.png" alt="Image 2">
+              <h3>Growth Investment</h3>
+              <input type="checkbox" name="strategy" id="strategy2" value="Growth Investing">
+            </div>
+            <!-- Panel 3 -->
+            <div class="investment-panel">
+              <img src="static/pictures/index-1.png" alt="Image 3">
+              <h3>Index Investment</h3>
+              <input type="checkbox" name="strategy" id="strategy3" value="Index Investing">
+            </div>
+            <!-- Panel 4 -->
+            <div class="investment-panel">
+              <img src="static/pictures/quality-1.png" alt="Image 4">
+              <h3>Quality Investment</h3>
+              <input type="checkbox" name="strategy" id="strategy4" value="Quality Investing">
+            </div>
+            <!-- Panel 5 -->
+            <div class="investment-panel">
+              <img src="static/pictures/value-1.png" alt="Image 5">
+              <h3>Value Investment</h3>
+              <input type="checkbox" name="strategy" id="strategy5" value="Value Investing">
+            </div>
+            <!-- Add more panels-->
           </div>
-          <!-- Panel 2 -->
-          <div class="investment-panel">
-            <img src="static/pictures/growth-1.png" alt="Image 2">
-            <h3>Growth Investment</h3>
-            <input type="checkbox" name="strategy1" id="strategy2">
-          </div>
-          <!-- Panel 3 -->
-          <div class="investment-panel">
-            <img src="static/pictures/index-1.png" alt="Image 3">
-            <h3>Index Investment</h3>
-            <input type="checkbox" name="strategy1" id="strategy3">
-          </div>
-          <!-- Panel 4 -->
-          <div class="investment-panel">
-            <img src="static/pictures/quality-1.png" alt="Image 4">
-            <h3>Quality Investment</h3>
-            <input type="checkbox" name="strategy1" id="strategy4">
-          </div>
-          <!-- Panel 5 -->
-          <div class="investment-panel">
-            <img src="static/pictures/value-1.png" alt="Image 5">
-            <h3>Value Investment</h3>
-            <input type="checkbox" name="strategy1" id="strategy5">
-          </div>
-          <!-- Add more panels-->
+          <input type="hidden" name="selected_strategies">
+          <button type="submit">Submit</button>
+        </form>
         </div>
-            <button type="submit">Submit</button>
-          </form>
         </div>
-        </div>   
+  </div>
 </section>
 
 <section class="customer-reviews" id="customer-reviews">
@@ -297,27 +300,31 @@ closeButton.addEventListener('click', () => {
 
 // Select all investment panels
 const investmentPanels = document.querySelectorAll('.investment-panel');
+const selectedStrategiesInput = document.querySelector('input[name="selected_strategies"]');
 
-// Track the number of selected panels
-let selectedCount = 0;
+  // Track the number of selected panels
+  let selectedCount = 0;
 
-// Add click event listener to each panel
-investmentPanels.forEach(panel => {
-  panel.addEventListener('click', () => {
-    // Check if the maximum limit of two selections is reached
-    if (selectedCount < 2 || panel.classList.contains('selected')) {
-      // Toggle the 'selected' class on the clicked panel
-      panel.classList.toggle('selected');
-
-      // Update the selected count
-      if (panel.classList.contains('selected')) {
-        selectedCount++;
-      } else {
-        selectedCount--;
+  // Add click event listener to each panel
+  investmentPanels.forEach(panel => {
+    panel.addEventListener('click', () => {
+      // Check if the maximum limit of two selections is reached
+      if (selectedCount < 2 || panel.classList.contains('selected')) {
+        // Toggle the 'selected' class on the clicked panel
+        panel.classList.toggle('selected');
+        // Update the selected count
+        if (panel.classList.contains('selected')) {
+          selectedCount++;
+        } else {
+          selectedCount--;
+        }
+        // Update the hidden input with selected strategies
+        const selectedStrategies = Array.from(document.querySelectorAll('.investment-panel.selected'))
+          .map(panel => panel.querySelector('input[name="strategy"]').value);
+        selectedStrategiesInput.value = selectedStrategies.join(',');
       }
-    }
+    });
   });
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   // Select all FAQ questions
