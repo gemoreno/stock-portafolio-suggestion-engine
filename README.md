@@ -1,5 +1,5 @@
 # stock-portafolio-suggestion-engine
-Final project for CMPE 287 - SJSU Spring 2024
+Final project for CMPE 285 - SJSU Spring 2024
 
 User will: Input dollar amount to invest in USD (Minimum is $5000 USD)
 and 
