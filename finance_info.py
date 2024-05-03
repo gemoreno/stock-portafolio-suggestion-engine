@@ -57,7 +57,7 @@ def queryStockInfoMultiple(strategies):
         "Growth Investing": ["AMZN", "GOOGL", "SQ"],
         "Index Investing": ["VTI", "SPY", "ACWI"],
         "Quality Investing": ["JNJ", "V", "MSFT"],
-        "Value Investing": ["BRK.A", "XOM", "WMT"]
+        "Value Investing": ["MMM", "XOM", "WMT"]
     }
     result = []
 
@@ -130,7 +130,9 @@ def queryStockInfoSingle(symbol):
         # Extract wanted data
         longName = stock_info.get('longName', 'N/A')
         # symbol = stock_info.get('symbol', 'N/A')
-        currentPrice = stock_info.get('currentPrice', 0)
+        currentPrice = stock_info.get('currentPrice')
+        if currentPrice is None:
+            currentPrice = stock_info.get('navPrice', 0)
         previousClose = stock_info.get('previousClose', 0)
         # Calculate difference from previous day closure
         difference = currentPrice - previousClose
@@ -234,6 +236,12 @@ def getStockWeights():
         "AMZN": 7,
         "GOOGL": 7,
         "SQ": 6,
+        "MMM": 5,
+        "XOM": 6,
+        "WMT": 8,
+        "JNJ": 5,
+        "V": 6,
+        "MSFT": 7
     }
     return stocks_weights
 
