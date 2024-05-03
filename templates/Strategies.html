@@ -114,6 +114,8 @@
 
 <script>
 
+    var backgroundColors = ['#519DE9', '#7CC674', '#73C5C5', '#8481DD', '#F6D173', '#EF9234'];
+
     // Get the close button and disclaimer banner elements
     const closeButton = document.getElementById('close-banner');
     const disclaimerBanner = document.getElementById('disclaimer-banner');
@@ -150,7 +152,7 @@
             labels: [{% for strategy in stocks_info %}{% for stock in strategy.stocks %}"{{ stock.longName }}"{% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %}, {% endif %}{% endfor %}],
             datasets: [{
                 data: [{% for strategy in stocks_info %}{% for stock in strategy.stocks %}{{ stock.allocation }}{% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %}, {% endif %}{% endfor %}],
-                backgroundColor: ['#322063', '#503c7b', '#6e5994', '#e3cc91', '#e8d39f', '#eddaae']
+                backgroundColor: backgroundColors
             }]
         };
 
@@ -159,7 +161,7 @@
             labels: [{% for strategy in stocks_info %}{% for stock in strategy.stocks %}"{{ stock.longName }}"{% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %}, {% endif %}{% endfor %}],
             datasets: [{
                 data: [{% for strategy in stocks_info %}{% for stock in strategy.stocks %}{{ stock.units }}{% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %}, {% endif %}{% endfor %}],
-                backgroundColor: ['#8d78ae', '#ab98c8', '#cbbae3', '#d4b966', '#d9bf74', '#dec682']
+                backgroundColor: backgroundColors
             }]
         };
 
@@ -200,7 +202,7 @@
         datasets.push({
             label: '{{ symbol }}',
             data: {{ prices.get('values') | safe }},
-            borderColor: getRandomColor()
+            borderColor: backgroundColors
         });
     {% endfor %}
 
@@ -212,13 +214,14 @@
         };
 
         datasets = [];
-
+        var i = 0;
         {% for symbol, prices in historical_data.items() %}
             datasets.push({
                 label: '{{ symbol }}',
                 data: {{ prices.get('total_values') | safe }},
-                backgroundColor: getRandomColor()
+                backgroundColor: backgroundColors[i % backgroundColors.length],
             });
+            i++;
         {% endfor %}
 
 
@@ -265,23 +268,44 @@
         });
     });
 
-    //news api  check and open CORS but python should be able to handle and not js
-    const apiKey = 'bfba112356d4433882100d632b80743b';
-    const baseUrl = 'https://newsapi.org/v2/everything';
-    const query = 'stocks'; // Your desired query
+    async function fetchStockNews(symbols) {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 7); // Set to yesterday
 
-    async function fetchStockNews() {
-        const url = `${baseUrl}?q=${query}&apiKey=${apiKey}&pageSize=6`;
+        const formattedYesterday = formatDate(yesterday);
+
+        const baseUrl = "https://newsapi.org/v2/everything";
+        let query = "Stocks"; // Initial query
+
+        symbols.forEach(symbol => {
+            query += ` OR ${symbol}`;
+        });
+
+        const apiKey = "bfba112356d4433882100d632b80743b";
+        const url = `${baseUrl}?q=${query}&from=${formattedYesterday}&to=${formattedYesterday}&sortBy=popularity&apiKey=${apiKey}&pageSize=10`;
+
         try {
             const response = await fetch(url);
             console.log('API Response:', response);
             const data = await response.json();
             console.log('Data:', data);
-            return data.articles;
+            // Filter out articles containing '[Removed]' in title or description
+            const filteredArticles = data.articles.filter(article => {
+                return article.title !== '[Removed]' && article.url !== 'https://removed.com';
+            });
+            return filteredArticles.slice(0, 6);
         } catch (error) {
             console.error('Error fetching news:', error);
             return [];
         }
+    }
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
     function createNewsItem(article) {
@@ -305,8 +329,15 @@
     }
 
     async function displayNews() {
+        const symbols = [];
+        {% for strategy in stocks_info %}
+            {% for stock in strategy.stocks %}
+                symbols.push('{{ stock.symbol }}');
+            {% endfor %}
+        {% endfor %}
+
         const newsWidget = document.querySelector('.news-widget');
-        const articles = await fetchStockNews();
+        const articles = await fetchStockNews(symbols);
         console.log('Articles:', articles);
         articles.forEach(article => {
             const newsItem = createNewsItem(article);

@@ -54,7 +54,7 @@ def queryStockInfoMultiple(strategies):
         "Growth Investing": ["AMZN", "GOOGL", "SQ"],
         "Index Investing": ["VTI", "SPY", "ACWI"],
         "Quality Investing": ["JNJ", "V", "MSFT"],
-        "Value Investing": ["BRK-A", "XOM", "WMT"]
+        "Value Investing": ["MMM", "XOM", "WMT"]
     }
     result = []
 
@@ -198,7 +198,7 @@ def getStockWeights():
         "AMZN": 7,
         "GOOGL": 7,
         "SQ": 6,
-        "BRK-A": 5,
+        "MMM": 5,
         "XOM": 6,
         "WMT": 8,
         "JNJ": 5,
