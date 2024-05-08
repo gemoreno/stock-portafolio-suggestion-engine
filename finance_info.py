@@ -10,6 +10,9 @@ def main():
     strategies = [
         "Ethical Investing",
         "Growth Investing",
+        "Index Investing",
+        "Quality Investing",
+        "Value Investing"
     ]
 
     stocks_info = queryStockInfoMultiple(strategies=strategies)
@@ -69,6 +72,33 @@ def queryStockInfoMultiple(strategies):
 
         result.append(strategy_container)
     return result
+
+
+def stock_allocation_percentages():
+    # Based on researched factors on a case by case basis, minimizing risk but also having potential for large gains
+    allocation_percentages = {
+        # Ethical
+        "TSLA": 50,
+        "BYND": 30,
+        "DANOY": 20,
+        # Growth
+        "AMZN": 40,
+        "GOOGL": 30,
+        "SQ": 30,
+        # Index
+        "VTI": 40,
+        "SPY": 40,
+        "ACWI": 20,
+        # Quality
+        "JNJ": 30,
+        "V": 40,
+        "MSFT": 30,
+        # Value
+        "BRK.A": 40,
+        "XOM": 30,
+        "WMT": 30
+    }
+    return allocation_percentages
 
 
 def get_previous_trading_sessions(start_date, num_sessions):
@@ -146,78 +176,15 @@ def get_historical_data(stocks_info_with_allocation):
 
 
 def allocateFunds(investment_amount, strategies_info):
-    total_strategy_weight, stock_weights_by_strategy = calculateWeights(strategies_info)
+    percentages = stock_allocation_percentages()
 
-    # Assign funds based on calculated weights
-    for strategy, weights in zip(strategies_info, stock_weights_by_strategy):
-        strategy_weight, strategy_stock_weights, total_stock_weight = weights
-        if total_strategy_weight > 0 and total_stock_weight > 0:
-            strategy_allocation = (strategy_weight / total_strategy_weight) * investment_amount
-            strategy['allocation'] = strategy_allocation
-            for stock, stock_weight in zip(strategy['stocks'], strategy_stock_weights):
-                if isinstance(stock, dict):
-                    stock['allocation'] = (stock_weight / total_stock_weight) * strategy_allocation
-                    stock['units'] = stock['allocation'] / stock['currentPrice']
-    return strategies_info
-
-
-def calculateWeights(strategies_info):
-    # Define fixed weights for strategies and stocks
-    strategies_weights = getStrategyWeights()
-    stocks_weights = getStockWeights()
-
-    # Calculate total weights for strategies and stocks
-    total_strategy_weight = 0
-    stock_weights_by_strategy = []
     for strategy in strategies_info:
-        strategy_weight = 0
-        total_stock_weight = 0
-        strategy_stock_weights = []
         for stock in strategy['stocks']:
-            if isinstance(stock, dict):  # ensure the stock is not an error message
-                stock_weight = stocks_weights.get(stock['symbol'], 0)
-                total_stock_weight += stock_weight
-                strategy_stock_weights.append(stock_weight)
-            else:
-                strategy_stock_weights.append(0)
-        if total_stock_weight > 0:
-            strategy_weight = strategies_weights.get(strategy['strategy_name'], 0)
-        total_strategy_weight += strategy_weight
-        stock_weights_by_strategy.append((strategy_weight, strategy_stock_weights, total_stock_weight))
-    return total_strategy_weight, stock_weights_by_strategy
-
-
-def getStockWeights():
-    stocks_weights = {
-        "TSLA": 7,
-        "BYND": 5,
-        "DANOY": 6,
-        "VTI": 8,
-        "SPY": 7,
-        "ACWI": 7,
-        "AMZN": 7,
-        "GOOGL": 7,
-        "SQ": 6,
-        "MMM": 5,
-        "XOM": 6,
-        "WMT": 8,
-        "JNJ": 5,
-        "V": 6,
-        "MSFT": 7
-    }
-    return stocks_weights
-
-
-def getStrategyWeights():
-    strategies_weights = {
-        "Ethical Investing": 5,
-        "Growth Investing": 7,
-        "Index Investing": 10,
-        "Quality Investing": 8,
-        "Value Investing": 6
-    }
-    return strategies_weights
-
+            if isinstance(stock, dict):
+                stock_percentage = percentages.get(stock['symbol'], 0)
+                stock['allocation'] = (stock_percentage/100) * investment_amount
+                stock['units'] = stock['allocation'] / stock['currentPrice']
+    return strategies_info
 
 if __name__ == '__main__':
     main()
