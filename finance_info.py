@@ -94,7 +94,7 @@ def stock_allocation_percentages():
         "V": 40,
         "MSFT": 30,
         # Value
-        "BRK.A": 40,
+        "MMM": 40,
         "XOM": 30,
         "WMT": 30
     }
