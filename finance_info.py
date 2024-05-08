@@ -176,18 +176,6 @@ def get_historical_data(stocks_info_with_allocation):
 
 
 def allocateFunds(investment_amount, strategies_info):
-    '''total_strategy_weight, stock_weights_by_strategy = calculateWeights(strategies_info)
-
-    # Assign funds based on calculated weights
-    for strategy, weights in zip(strategies_info, stock_weights_by_strategy):
-        strategy_weight, strategy_stock_weights, total_stock_weight = weights
-        if total_strategy_weight > 0 and total_stock_weight > 0:
-            strategy_allocation = (strategy_weight / total_strategy_weight) * investment_amount
-            strategy['allocation'] = strategy_allocation
-            for stock, stock_weight in zip(strategy['stocks'], strategy_stock_weights):
-                if isinstance(stock, dict):
-                    stock['allocation'] = (stock_weight / total_stock_weight) * strategy_allocation
-                    stock['units'] = stock['allocation'] / stock['currentPrice']'''
     percentages = stock_allocation_percentages()
 
     for strategy in strategies_info:
@@ -197,65 +185,6 @@ def allocateFunds(investment_amount, strategies_info):
                 stock['allocation'] = (stock_percentage/100) * investment_amount
                 stock['units'] = stock['allocation'] / stock['currentPrice']
     return strategies_info
-
-
-def calculateWeights(strategies_info):
-    # Define fixed weights for strategies and stocks
-    strategies_weights = getStrategyWeights()
-    stocks_weights = getStockWeights()
-
-    # Calculate total weights for strategies and stocks
-    total_strategy_weight = 0
-    stock_weights_by_strategy = []
-    for strategy in strategies_info:
-        strategy_weight = 0
-        total_stock_weight = 0
-        strategy_stock_weights = []
-        for stock in strategy['stocks']:
-            if isinstance(stock, dict):  # ensure the stock is not an error message
-                stock_weight = stocks_weights.get(stock['symbol'], 0)
-                total_stock_weight += stock_weight
-                strategy_stock_weights.append(stock_weight)
-            else:
-                strategy_stock_weights.append(0)
-        if total_stock_weight > 0:
-            strategy_weight = strategies_weights.get(strategy['strategy_name'], 0)
-        total_strategy_weight += strategy_weight
-        stock_weights_by_strategy.append((strategy_weight, strategy_stock_weights, total_stock_weight))
-    return total_strategy_weight, stock_weights_by_strategy
-
-
-def getStockWeights():
-    stocks_weights = {
-        "TSLA": 7,
-        "BYND": 5,
-        "DANOY": 6,
-        "VTI": 8,
-        "SPY": 7,
-        "ACWI": 7,
-        "AMZN": 7,
-        "GOOGL": 7,
-        "SQ": 6,
-        "MMM": 5,
-        "XOM": 6,
-        "WMT": 8,
-        "JNJ": 5,
-        "V": 6,
-        "MSFT": 7
-    }
-    return stocks_weights
-
-
-def getStrategyWeights():
-    strategies_weights = {
-        "Ethical Investing": 5,
-        "Growth Investing": 7,
-        "Index Investing": 10,
-        "Quality Investing": 8,
-        "Value Investing": 6
-    }
-    return strategies_weights
-
 
 if __name__ == '__main__':
     main()
