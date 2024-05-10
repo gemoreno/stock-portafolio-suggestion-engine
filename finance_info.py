@@ -179,10 +179,13 @@ def allocateFunds(investment_amount, strategies_info):
     percentages = stock_allocation_percentages()
 
     for strategy in strategies_info:
+        
         for stock in strategy['stocks']:
             if isinstance(stock, dict):
                 stock_percentage = percentages.get(stock['symbol'], 0)
                 stock['allocation'] = (stock_percentage/100) * investment_amount
+                if (len(strategies_info) > 1):
+                    stock['allocation'] = stock['allocation'] / 2
                 stock['units'] = stock['allocation'] / stock['currentPrice']
     return strategies_info
 
