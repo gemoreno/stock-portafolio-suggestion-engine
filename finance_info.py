@@ -15,32 +15,6 @@ def main():
         "Value Investing"
     ]
 
-    stocks_info = queryStockInfoMultiple(strategies=strategies)
-
-    allocation = allocateFunds(10_000, stocks_info)
-    print(get_historical_data(allocation))
-    pretty_json = json.dumps(allocation, indent=2, sort_keys=False)
-    print(pretty_json)
-    table = PrettyTable()
-
-    # Define columns
-    table.field_names = ["Strategy Name", "Stock Name", "Symbol", "Current Price", "Allocation"]
-
-    # Add data to table
-    for strategy in allocation:
-        strategy_name = strategy["strategy_name"]
-        allocation = strategy["allocation"]
-        for stock in strategy["stocks"]:
-            stock_name = stock["longName"]
-            symbol = stock["symbol"]
-            current_price = stock["currentPrice"]
-            allocation_stock = stock["allocation"]
-            table.add_row([strategy_name, stock_name, symbol, current_price, allocation_stock])
-
-    # Print the table
-    print(table)
-
-
 def getCurrentTime():
     # Setting the timezone to Pacific Daylight Time (PDT)
     pdt_timezone = pytz.timezone('America/Los_Angeles')
