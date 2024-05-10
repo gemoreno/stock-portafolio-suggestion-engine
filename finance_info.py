@@ -2,8 +2,6 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import pytz
 from requests.exceptions import ConnectionError
-import json
-from prettytable import PrettyTable
 
 
 def main():

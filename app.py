@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from finance_info import allocateFunds, queryStockInfoMultiple, get_historical_data
 
-# import dotenv
-
 app = Flask('__name__')
 
 
