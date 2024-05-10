@@ -16,11 +16,11 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html#hero">Home</a></li>
-                <li><a href="index.html#risk-levels">Blogs</a></li>
-                <li><a href="index.html#investment-section">Stock Suggestor</a></li>
-                <li><a href="index.html#customer-reviews">About</a></li>
-                <li><a href="index.html#team-section">Team</a></li>
+                <li><a href="/#hero">Home</a></li>
+                <li><a href="/#risk-levels">Blogs</a></li>
+                <li><a href="/#investment-section">Stock Suggestor</a></li>
+                <li><a href="/#customer-reviews">About</a></li>
+                <li><a href="/#team-section">Team</a></li>
             </ul>
         </nav>
     </div>
@@ -37,7 +37,8 @@
 <section class="stock-data">
     <div class="container">
         {% for strategy in stocks_info %}
-        <div><h2>{{ strategy.strategy_name }}</h2></div>
+        <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+            <h2 style="line-height: 100px;" >{{ strategy.strategy_name }}</h2></div>
         <div class="row">
             {% for stock in strategy.stocks %}
                 <div class="stock-panel">
@@ -57,11 +58,11 @@
 <h1 style="color: #CEB257; text-align: center; text-decoration: underline;">Analysis</h1>
 <section class="pie-charts">
     <div class="pie-chart">
-        <h3>Current Price Distribution</h3>
+        <h3>Investment Distribution</h3>
         <canvas id="chart1"></canvas>
     </div>
     <div class="pie-chart">
-        <h3>Stock Allocation</h3>
+        <h3>Amount of Stock</h3>
         <canvas id="chart2"></canvas>
     </div>
 </section>

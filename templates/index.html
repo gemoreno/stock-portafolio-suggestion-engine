@@ -110,7 +110,7 @@
         <form method="post" action="/">
           <h1>Stock Suggester</h1>
           <p>Enter an amount to invest $:
-            <input type="number" name="investment_amount" placeholder="5000" min="5000">
+            <input type="number" name="investment_amount" placeholder="5000" min="5000" required>
           </p>
           <p><span style="color: #CEB257;">Select one or two strategies:</span></p>
 
@@ -147,7 +147,7 @@
             </div>
             <!-- Add more panels-->
           </div>
-          <input type="hidden" name="selected_strategies">
+          <input type="hidden" name="selected_strategies" required>
           <button type="submit">Submit</button>
         </form>
         </div>
