@@ -36,7 +36,7 @@
 4. Activate the virtual environment using `myenv\Scripts\activate`
 5. Install the dependencies using `pip install -r requirements.txt`
 6. Run the application using `flask run`
-7. Open [http://127.0.0.1:5000](http://127.0.0.1:5000)
+7. Open [http://127.0.0.1:5000](http://127.0.0.1:5050)
 
 ## Team:
 ![img.png](static/pictures/team.png)
