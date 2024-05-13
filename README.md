@@ -1,32 +1,45 @@
-# stock-portafolio-suggestion-engine
-Final project for CMPE 285 - SJSU Spring 2024
+# Stock Portfolio Suggestion Engine
 
-User will: Input dollar amount to invest in USD (Minimum is $5000 USD)
-and 
-Pick one or two investment strategies:
-- Ethical Investing
-- Growth Investing
-- Index Investing
-- Quality Investing
-- Value Investing
+**Final project for CMPE 285 - SJSU Spring 2024**
 
-The engine needs to assign stocks or ETFs for a selected investment strategy.
+## Use Case:
 
-The suggestion engine will output:
+### User Inputs:
+- Dollar amount to invest in USD (Minimum is $5000 USD)
+- Pick one or two investment strategies:
+  - Ethical Investing
+  - Growth Investing
+  - Index Investing
+  - Quality Investing
+  - Value Investing
 
-- Which stocks are selected based on inputed strategies.
-- How the money are divided to buy the suggested stock.
-- The current values (up to the sec via Internet) of the overall portfolio (including all the stocks / ETFs)
-- A weekly trend of the portfolio value. In order words, keep 5 days history of the overall portfolio value.
+![Investment Strategies](static/pictures/img.png)
 
+## Engine Output:
+- Selected stocks based on inputted strategies.
+- Distribution of the invested money among suggested stocks.
+  ![Stock Distribution](static/pictures/stock_distribution.png)
+- Current values (up to the second via the Internet) of the overall portfolio (including all stocks / ETFs).
+  ![Stocks Display](static/pictures/stocks_display.png)
+- Weekly trend of the portfolio value. In other words, keep a 5-day history of the overall portfolio value.
+  ![Weekly History](static/pictures/weekly_history.png)
 
-decide on various different parts 
-- UI to use
-- How stocks/ETFs are mapped to investing strategy
-- How the money is divided among buying
-- How to present the weekly history of the portfolio value
-- How many extra feature should be implemented to improve the project.
+## Installation Guide
 
+### Pre-requisites
+- Python
 
-Guide to use Flask:
-https://github.com/pushyachandra/Flask_Dev_Deployment/tree/main
+### Installation (Windows)
+1. Clone the repository
+2. Open a terminal in the root folder of the repository
+3. Create a virtual environment using `python -m venv myenv`
+4. Activate the virtual environment using `myenv\Scripts\activate`
+5. Install the dependencies using `pip install -r requirements.txt`
+6. Run the application using `flask run`
+7. Open [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+## Team:
+![img.png](static/pictures/team.png)
+
+### Guide to Using Flask:
+[Flask Development and Deployment Guide](https://github.com/pushyachandra/Flask_Dev_Deployment/tree/main)
